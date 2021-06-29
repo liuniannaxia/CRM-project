@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjpowernode.crm.settings.mapper.RoleMapper">
+
+    <!--除了select还有updata-->
+    <!--id 要用接口中的方法名称-->
+    <!--resultType表示执行完sql后表示的结果类型，写的是类型的全限定名称-->
+    <select id="queryRolePermission" resultType="com.bjpowernode.crm.base.bean.Permission">
+        select *from tbl_permission where id in (
+        select pId from tbl_role_permission rs where roleId=#{id}
+        )
+    </select>
+
+    <select id="queryPermission" resultType="com.bjpowernode.crm.base.bean.Permission">
+        select *from tbl_permission
+    </select>
+
+
+</mapper>

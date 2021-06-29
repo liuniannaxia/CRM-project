@@ -1,0 +1,38 @@
+package com.bjpowernode.crm.settings.workbench.domain;
+
+import lombok.Data;
+import tk.mybatis.mapper.annotation.KeySql;
+import tk.mybatis.mapper.annotation.NameStyle;
+import tk.mybatis.mapper.code.Style;
+
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Data
+@Table(name = "tbl_clue")
+@NameStyle(Style.normal)
+public class Clue {
+    @Id
+    @KeySql(useGeneratedKeys = true)
+    private String id;
+    private String fullname;
+    private String appellation;
+    private String owner;
+    private String company;
+    private String job;
+    private String email;
+    private String phone;
+    private String website;
+    private String mphone;
+    private String state;
+    private String source;
+    private String createBy;
+    private String createTime;
+    private String editBy;
+    private String editTime;
+    private String description;
+    private String contactSummary;
+    private String nextContactTime;
+    private String address;
+
+}

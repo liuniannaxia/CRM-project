@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjpowernode.crm.settings.workbench.mapper.TransactionMapper">
+
+    <!--除了select还有updata-->
+    <!--id 要用接口中的方法名称-->
+    <!--resultType表示执行完sql后表示的结果类型，写的是类型的全限定名称-->
+    <select id="transactionEcharts" resultType="com.bjpowernode.crm.base.bean.BarVo">
+      select count(*) amount,stage titles from tbl_tran group by stage order by stage
+    </select>
+    
+
+</mapper>

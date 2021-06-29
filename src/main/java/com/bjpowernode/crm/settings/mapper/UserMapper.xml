@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjpowernode.crm.settings.mapper.UserMapper">
+
+    <!--除了select还有updata-->
+    <!--id 要用接口中的方法名称-->
+    <!--resultType表示执行完sql后表示的结果类型，写的是类型的全限定名称-->
+    <select id="verifyPrincipal" resultType="com.bjpowernode.crm.settings.bean.User">
+        select *from tbl_user when loginAct = #(loginAct)
+    </select>
+
+<!--查询主菜单权限-->
+    <select id="showMenus" resultType="com.bjpowernode.crm.base.bean.Permission">
+      select * from tbl_permission p where id in(
+      select rp.pid from tbl_role_permission rp left join tbl_role r on
+      rp.roleId=r.id where rp.roleId in(
+	  select ur.roleId from  tbl_user u RIGHT JOIN tbl_user_role ur
+      on u.id=ur.userId where u.id=#{id}
+        )
+      )and p.parent_id=0
+    </select>
+    <!--查询所有的菜单权限-->
+    <select id="showAll" resultType="com.bjpowernode.crm.base.bean.Permission">
+      select * from tbl_permission p where id in(
+      select rp.pid from tbl_role_permission rp left join tbl_role r on
+      rp.roleId=r.id where rp.roleId in(
+	  select ur.roleId from  tbl_user u RIGHT JOIN tbl_user_role ur
+      on u.id=ur.userId where u.id=#{id}
+        )
+      )
+    </select>
+
+    <!--<select id="getCodeByPrincipal"resultType="com.bjpowernode.crm.base.bean.Permission">
+        select * from tbl_permission p where id in(
+      select rp.pid from tbl_role_permission rp left join tbl_role r on
+      rp.roleId=r.id where rp.roleId in(
+	  select ur.roleId from  tbl_user u RIGHT JOIN tbl_user_role ur
+      on u.id=ur.userId where u.loginAct=#{loginAct}
+        )
+      )
+    </select>-->
+    <select id="getCodeByPrincipal" resultType="com.bjpowernode.crm.base.bean.Permission">
+      select * from tbl_permission p where id in(
+      select rp.pid from tbl_role_permission rp left join tbl_role r on
+      rp.roleId=r.id where rp.roleId in(
+	  select ur.roleId from  tbl_user u RIGHT JOIN tbl_user_role ur
+      on u.id=ur.userId where u.loginAct=#{loginAct}
+        )
+      )
+    </select>
+
+</mapper>
